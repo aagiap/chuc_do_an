@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Say Xẩm - Chúc Bảo Vệ Thành Công</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            /* Nền đỏ đen vignette */
+            background: radial-gradient(circle, #5e0000 0%, #0f0505 100%);
+            color: #f4e4bc;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            text-align: center;
+            
+            /* --- CON TRỎ CHUỘT MỚI: MŨI TÊN VÀNG KIM SẮC NÉT --- */
+            /* Đã chỉnh tọa độ (0 0) để mũi tên trỏ chính xác */
+            cursor: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 2L13.5 28L17 19L26 17L2 2Z' fill='%23D4AF37' stroke='%23ffffff' stroke-width='1.5'/%3E%3C/svg%3E") 2 2, auto;
+        }
+
+        /* Lớp phủ họa tiết mờ cho background đỡ trống */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23D4AF37' fill-opacity='0.2'/%3E%3C/svg%3E");
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            padding: 3.5rem;
+            /* Tăng độ trong suốt để nhìn nền đẹp hơn */
+            background: rgba(30, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            /* Viền vàng kim loại */
+            border: 2px solid #D4AF37;
+            /* Hiệu ứng bóng đổ tỏa sáng */
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.15), inset 0 0 20px rgba(0,0,0,0.5);
+            max-width: 90%;
+            width: 750px;
+            animation: slideUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* Trang trí 4 góc (Corner Ornaments) */
+        .ornament {
+            position: absolute;
+            width: 20px; height: 20px;
+            border: 2px solid #D4AF37;
+            transition: 0.3s;
+        }
+        .o-tl { top: 10px; left: 10px; border-right: 0; border-bottom: 0; }
+        .o-tr { top: 10px; right: 10px; border-left: 0; border-bottom: 0; }
+        .o-bl { bottom: 10px; left: 10px; border-right: 0; border-top: 0; }
+        .o-br { bottom: 10px; right: 10px; border-left: 0; border-top: 0; }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            color: #D4AF37;
+            /* Tạo chữ nổi 3D nhẹ */
+            text-shadow: 3px 3px 0px #3a0000;
+            letter-spacing: 2px;
+        }
+
+        p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: #e6e6e6;
+            font-weight: 400;
+        }
+
+        .highlight {
+            color: #D4AF37;
+            font-weight: 700;
+            font-size: 1.4rem;
+            font-family: 'Playfair Display', serif;
+            text-decoration: underline;
+            text-decoration-color: rgba(212, 175, 55, 0.5);
+            text-underline-offset: 4px;
+        }
+
+        .quote {
+            font-style: italic;
+            opacity: 0.9;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            color: #D4AF37;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .container { padding: 2rem; }
+            .ornament { display: none; } /* Ẩn góc trên mobile cho thoáng */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="ornament o-tl"></div>
+        <div class="ornament o-tr"></div>
+        <div class="ornament o-bl"></div>
+        <div class="ornament o-br"></div>
+
+        <h1>CHÚC BẢO VỆ ĐỒ ÁN<br>ĐẠI THẮNG!</h1>
+        
+        <p>
+            Gửi tới team <span class="highlight">Say Xẩm</span>,<br><br>
+            Giờ G sắp điểm. Chúc các bạn giữ vững tinh thần, lập luận sắc bén và lan tỏa trọn vẹn tình yêu văn hóa.<br>
+            Sân khấu này là của các bạn!
+        </p>
+        
+        <div class="quote">
+            "Mây tre hòa nhịp phách - Ý tưởng vút bay cao"
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <script>
+        // Cấu hình pháo hoa chạy liên tục
+        var duration = 15 * 1000; // Thời gian mỗi đợt (thực ra là chạy mãi mãi do loop)
+        var animationEnd = Date.now() + duration;
+        var skew = 1;
+
+        function randomInRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        (function frame() {
+            var timeLeft = animationEnd - Date.now();
+            
+            // Màu sắc theo tone: Vàng đồng, Đỏ đậm, Trắng
+            var colors = ['#D4AF37', '#8B0000', '#ffffff'];
+
+            // Bắn pháo hoa dày đặc (particleCount cao)
+            confetti({
+                particleCount: 3, // Số lượng hạt mỗi khung hình (tăng lên để dày hơn)
+                startVelocity: 0,
+                ticks: 300, // Thời gian rơi lâu hơn
+                origin: {
+                    x: Math.random(),
+                    // Bắn từ trên trời rơi xuống (y = 0) sẽ đẹp hơn cho phông nền
+                    y: Math.random() * 0.5 - 0.2
+                },
+                colors: colors,
+                shapes: ['circle', 'square'], // Hình dáng hạt
+                gravity: randomInRange(0.4, 0.8),
+                scalar: randomInRange(0.8, 1.4), // Kích thước hạt to nhỏ khác nhau
+                drift: randomInRange(-0.4, 0.4)
+            });
+
+            // Gọi đệ quy liên tục để tạo vòng lặp vô tận
+            requestAnimationFrame(frame);
+        }());
+    </script>
+</body>
+</html>
