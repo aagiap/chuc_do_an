@@ -6,11 +6,7 @@
     <title>Say Xẩm - Chúc Bảo Vệ Thành Công</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Montserrat', sans-serif;
@@ -22,12 +18,10 @@
             align-items: center;
             overflow: hidden;
             text-align: center;
-            
-            /* Con trỏ chuột Mũi tên Vàng kim */
             cursor: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 2L13.5 28L17 19L26 17L2 2Z' fill='%23D4AF37' stroke='%23ffffff' stroke-width='1.5'/%3E%3C/svg%3E") 2 2, auto;
+            user-select: none; 
         }
 
-        /* Họa tiết nền */
         body::before {
             content: "";
             position: absolute;
@@ -36,21 +30,72 @@
             z-index: 1;
         }
 
-        .container {
+        .box-style {
             position: relative;
             z-index: 10;
             padding: 3.5rem;
-            background: rgba(30, 0, 0, 0.7);
+            background: rgba(30, 0, 0, 0.85); 
             backdrop-filter: blur(10px);
             border-radius: 12px;
             border: 2px solid #D4AF37;
             box-shadow: 0 0 50px rgba(212, 175, 55, 0.15), inset 0 0 20px rgba(0,0,0,0.5);
             max-width: 90%;
             width: 750px;
+            transition: all 0.5s ease;
+        }
+
+        #login-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        input[type="password"] {
+            padding: 15px;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #D4AF37;
+            background: rgba(0,0,0,0.5);
+            color: #D4AF37;
+            font-size: 1.2rem;
+            text-align: center;
+            outline: none;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 3px;
+        }
+
+        button.btn-unlock {
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #D4AF37, #8B0000);
+            border: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        button.btn-unlock:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #D4AF37;
+        }
+
+        .error-msg {
+            color: #ff4444;
+            font-size: 0.9rem;
+            height: 20px;
+            font-style: italic;
+        }
+
+        #main-content {
+            display: none; 
             animation: slideUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        /* 4 góc trang trí */
         .ornament {
             position: absolute;
             width: 20px; height: 20px;
@@ -105,89 +150,116 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* CSS CHO HIỆU ỨNG RẢI HOA THEO CHUỘT */
         .mouse-flower {
             position: fixed;
-            pointer-events: none; /* Không che mất các nút bấm */
+            pointer-events: none;
             z-index: 9999;
             font-size: 20px;
-            transition: all 1s ease-out; /* Bay và mờ dần trong 1s */
+            transition: all 1s ease-out;
             will-change: transform, opacity;
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            .container { padding: 2rem; }
+            h1 { font-size: 2rem; }
+            .box-style { padding: 2rem; width: 95%; }
             .ornament { display: none; }
         }
     </style>
 </head>
-<body>
-
-    <div class="container">
-        <div class="ornament o-tl"></div>
-        <div class="ornament o-tr"></div>
-        <div class="ornament o-bl"></div>
-        <div class="ornament o-br"></div>
-
-    <h1>CHÚC BẢO VỆ ĐỒ ÁN<br>THÀNH CÔNG!</h1>
-        
-        <p>
-            Gửi tới <span class="highlight">Bạn</span>,<br><br>
-            Chúc bạn và team bình tĩnh, giữ vững tinh thần, .<br>
-            Sân khấu này là của các bạn!
-        </p>
-        
-        <div class="quote">
-            "Try your best!"
-        </div>
+<body oncontextmenu="return false;"> <div id="login-screen" class="box-style">
+        <h2 style="font-family: 'Playfair Display'; color: #D4AF37; margin-bottom: 10px;">MẬT LỆNH</h2>
+        <p style="font-size: 0.9rem; margin-bottom: 20px;">Nhập mật khẩu để mở phong ấn</p>
+        <input type="password" id="passInput" placeholder="********">
+        <div class="error-msg" id="errorMsg"></div>
+        <button class="btn-unlock" onclick="checkPass()">Mở Khóa</button>
     </div>
+
+    <div id="main-content" class="box-style">
+        </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <script>
-        // --- PHẦN 1: HIỆU ỨNG RẢI HOA THEO CHUỘT (TỪ CODE WISH) ---
-        // Hàm tạo hoa
+        const SECRET_KEY = "thu";
+
+        function checkPass() {
+            const input = document.getElementById('passInput').value;
+            const error = document.getElementById('errorMsg');
+
+            if(input === SECRET_KEY) {
+                document.getElementById('login-screen').style.display = 'none';
+                
+                renderContent();
+
+                document.getElementById('main-content').style.display = 'block';
+
+                startFireworks();
+            } else {
+                error.innerText = "Sai mật lệnh rồi, thử lại đi!";
+                const box = document.getElementById('login-screen');
+                box.style.transform = "translateX(10px)";
+                setTimeout(() => box.style.transform = "translateX(-10px)", 100);
+                setTimeout(() => box.style.transform = "translateX(0)", 200);
+            }
+        }
+
+        document.getElementById("passInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") checkPass();
+        });
+
+        function renderContent() {
+            const container = document.getElementById('main-content');
+            container.innerHTML = `
+                <div class="ornament o-tl"></div>
+                <div class="ornament o-tr"></div>
+                <div class="ornament o-bl"></div>
+                <div class="ornament o-br"></div>
+
+                <h1>CHÚC BẢO VỆ ĐỒ ÁN<br>ĐẠI THẮNG!</h1>
+                
+                <p>
+                    Gửi tới <span class="highlight">Team Say Xẩm</span>,<br><br>
+                    Hãy bình tĩnh, tự tin trình bày rõ ràng ý tưởng và sắc sảo trong từng câu trả lời.<br>
+                    Chúc các bạn bảo vệ thành công rực rỡ và đạt kết quả vượt ngoài kỳ vọng!
+                </p>
+                
+                <div class="quote">
+                    "Mọi nỗ lực sẽ được đền đáp bằng hoa hồng!"
+                </div>
+            `;
+        }
+
+
+        document.onkeydown = function(e) {
+            if (e.key == 123) { return false; } // F12
+            if (e.ctrlKey && e.shiftKey && e.key == 'I'.charCodeAt(0)) { return false; } // Ctrl+Shift+I
+            if (e.ctrlKey && e.shiftKey && e.key == 'C'.charCodeAt(0)) { return false; } // Ctrl+Shift+C
+            if (e.ctrlKey && e.shiftKey && e.key == 'J'.charCodeAt(0)) { return false; } // Ctrl+Shift+J
+            if (e.ctrlKey && e.key == 'U'.charCodeAt(0)) { return false; } // Ctrl+U
+        };
+
         function createFlowerTrail(e) {
             let ele = document.createElement("div");
             ele.className = "mouse-flower";
-            document.body.prepend(ele); // Thêm vào body
-            
-            // Vị trí theo chuột
+            document.body.prepend(ele);
             ele.style.left = e.clientX + 'px';
             ele.style.top = e.clientY + 'px';
-
-            // Random icon hoa (Đào, Cúc, Hồng, Sao) cho sinh động
             const icons = ["🌸", "🌼", "🌺", "✨"]; 
             ele.innerHTML = icons[Math.floor(Math.random() * icons.length)];
-
-            // Random hướng bay
             let directionX = Math.random() < 0.5 ? -1 : 1;
             let directionY = Math.random() < 0.5 ? -1 : 1;
-
-            // Hiệu ứng bay nhẹ và biến mất
             setTimeout(() => {
                 ele.style.left = (e.clientX - (directionX * (Math.random() * 50))) + 'px';
                 ele.style.top = (e.clientY - (directionY * (Math.random() * 50))) + 'px';
                 ele.style.opacity = 0;
                 ele.style.transform = 'scale(0.5)';
             }, 10);
-
-            // Xóa phần tử sau khi xong animation (1s)
-            setTimeout(() => {
-                ele.remove();
-            }, 1000);
+            setTimeout(() => { ele.remove(); }, 1000);
         }
-
-        // Bắt sự kiện di chuyển chuột
-        document.addEventListener('mousemove', function(e) {
-            createFlowerTrail(e);
-        });
+        document.addEventListener('mousemove', createFlowerTrail);
 
 
-        // --- PHẦN 2: PHÁO HOA LIÊN HOÀN (CODE SAY XẨM) ---
-        // Cấu hình pháo hoa chạy liên tục
-        var duration = 15 * 1000; // Thời gian mỗi đợt (thực ra là chạy mãi mãi do loop)
+        var duration = 15 * 1000; 
         var animationEnd = Date.now() + duration;
         var skew = 1;
 
@@ -198,27 +270,23 @@
         (function frame() {
             var timeLeft = animationEnd - Date.now();
             
-            // Màu sắc theo tone: Vàng đồng, Đỏ đậm, Trắng
             var colors = ['#D4AF37', '#8B0000', '#ffffff'];
 
-            // Bắn pháo hoa dày đặc (particleCount cao)
             confetti({
-                particleCount: 3, // Số lượng hạt mỗi khung hình (tăng lên để dày hơn)
+                particleCount: 3, 
                 startVelocity: 0,
-                ticks: 300, // Thời gian rơi lâu hơn
+                ticks: 300, 
                 origin: {
                     x: Math.random(),
-                    // Bắn từ trên trời rơi xuống (y = 0) sẽ đẹp hơn cho phông nền
                     y: Math.random() * 0.5 - 0.2
                 },
                 colors: colors,
-                shapes: ['circle', 'square'], // Hình dáng hạt
+                shapes: ['circle', 'square'], 
                 gravity: randomInRange(0.4, 0.8),
-                scalar: randomInRange(0.8, 1.4), // Kích thước hạt to nhỏ khác nhau
+                scalar: randomInRange(0.8, 1.4), 
                 drift: randomInRange(-0.4, 0.4)
             });
 
-            // Gọi đệ quy liên tục để tạo vòng lặp vô tận
             requestAnimationFrame(frame);
         }());
     </script>
