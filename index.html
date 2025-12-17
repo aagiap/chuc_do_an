@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chúc Bảo Vệ Thành Công</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Montserrat', sans-serif;
@@ -19,13 +27,16 @@
             overflow: hidden;
             text-align: center;
             cursor: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 2L13.5 28L17 19L26 17L2 2Z' fill='%23D4AF37' stroke='%23ffffff' stroke-width='1.5'/%3E%3C/svg%3E") 2 2, auto;
-            user-select: none; 
+            user-select: none;
         }
 
         body::before {
             content: "";
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23D4AF37' fill-opacity='0.2'/%3E%3C/svg%3E");
             z-index: 1;
         }
@@ -34,11 +45,11 @@
             position: relative;
             z-index: 10;
             padding: 3.5rem;
-            background: rgba(30, 0, 0, 0.85); 
+            background: rgba(30, 0, 0, 0.85);
             backdrop-filter: blur(10px);
             border-radius: 12px;
             border: 2px solid #D4AF37;
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.15), inset 0 0 20px rgba(0,0,0,0.5);
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.15), inset 0 0 20px rgba(0, 0, 0, 0.5);
             max-width: 90%;
             width: 750px;
             transition: all 0.5s ease;
@@ -56,7 +67,7 @@
             width: 80%;
             border-radius: 5px;
             border: 1px solid #D4AF37;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             color: #D4AF37;
             font-size: 1.2rem;
             text-align: center;
@@ -92,20 +103,45 @@
         }
 
         #main-content {
-            display: none; 
+            display: none;
             animation: slideUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .ornament {
             position: absolute;
-            width: 20px; height: 20px;
+            width: 20px;
+            height: 20px;
             border: 2px solid #D4AF37;
             transition: 0.3s;
         }
-        .o-tl { top: 10px; left: 10px; border-right: 0; border-bottom: 0; }
-        .o-tr { top: 10px; right: 10px; border-left: 0; border-bottom: 0; }
-        .o-bl { bottom: 10px; left: 10px; border-right: 0; border-top: 0; }
-        .o-br { bottom: 10px; right: 10px; border-left: 0; border-top: 0; }
+
+        .o-tl {
+            top: 10px;
+            left: 10px;
+            border-right: 0;
+            border-bottom: 0;
+        }
+
+        .o-tr {
+            top: 10px;
+            right: 10px;
+            border-left: 0;
+            border-bottom: 0;
+        }
+
+        .o-bl {
+            bottom: 10px;
+            left: 10px;
+            border-right: 0;
+            border-top: 0;
+        }
+
+        .o-br {
+            bottom: 10px;
+            right: 10px;
+            border-left: 0;
+            border-top: 0;
+        }
 
         h1 {
             font-family: 'Playfair Display', serif;
@@ -146,8 +182,15 @@
         }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .mouse-flower {
@@ -160,42 +203,60 @@
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            .box-style { padding: 2rem; width: 95%; }
-            .ornament { display: none; }
+            h1 {
+                font-size: 2rem;
+            }
+
+            .box-style {
+                padding: 2rem;
+                width: 95%;
+            }
+
+            .ornament {
+                display: none;
+            }
         }
     </style>
 </head>
-<body oncontextmenu="return false;"> <div id="login-screen" class="box-style">
+
+<body oncontextmenu="return false;">
+
+    <div id="login-screen" class="box-style">
         <h2 style="font-family: 'Playfair Display'; color: #D4AF37; margin-bottom: 10px;">MẬT KHẨU</h2>
         <p style="font-size: 0.9rem; margin-bottom: 20px;">Nhập mật khẩu</p>
         <input type="password" id="passInput" placeholder="********">
         <div class="error-msg" id="errorMsg"></div>
-        <button class="btn-unlock" onclick="checkPass()">Mở</button>
+        <button class="btn-unlock" onclick="tryDecrypt()">Mở</button>
     </div>
 
-    <div id="main-content" class="box-style">
-        </div>
+    <div id="main-content" class="box-style"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    
+
     <script>
-        const SECRET_KEY = "thu";
 
-        function checkPass() {
-            const input = document.getElementById('passInput').value;
-            const error = document.getElementById('errorMsg');
+        const ENCRYPTED_CONTENT = "U2FsdGVkX1/Jh5Qpr0Tj+oSbBtYgb0GEK9LFUJw+QO9b/37I5mnMabtLkZdK8cY9i3hO5tnCbZsu9y51u/aS8wurnSw1+FHZL6bVRQ+VKmyUQ4zhM6YymK5wUEEWjeNKkvQIcLHL/LqrvbQKt0N/6q9DfeFB/FV4xE06T6oS06rkqVsHcpSVvqcKOG0tWPX7nQJ2L0eVZTgD6a89xrtfdpnPmZVrjfz1vwpPL8szqCVBsM9ZRs8J/8FPW5aFG/ImlRWRXm2Ty7JrbtAL3sdWAQ8UX/7jGKyZYIoEhbIBqVYBVIYdV7geXLeyo0jCF2O8Jbey+2Fg5UtkEVxpNKg5538fo39AwepYtHJ8d9lGsR3p6hREkKxJ37UUhy8nVvh5li5wRRnP8MRUgB5KfS4viwsBMZfgT6KEi3oXebno0XWwJhpJL1MxuL2mX5TjLgJmH3/hBJdiWtKIxcogc33oj+8AwY9d9VvcBEnPq7XAagxc7tQnn1o6jtqrrmzzwcWVW0zJyhXbIFflMHybTVCVjYG28k9eRmoRd1Jsvb/gyXMxhBufCUjHWNZmVVDBe2ZjUantICtH1+ux0/EOW9uGDwDKlivuHncwvmXKOOqMyeqHaS4xvjLLnTh2pGLy5mxIWBpLkeu0aBTGpc32IgLeQ3VTD1ifY7vmZFq6RYzccuKohuC/3BrqKXuGbvtUAqfMfnDULwru6XTS/g2pBCAN4vBbtKzjjuOOvxnKP7E2XPu8wB7TgACoxkviwIa1+ZzbXvn+8DcmAYeIpW6GVBWloe/GLOBH7Eh7f6+Wwv4qMDZc+7+vCXLQJ+ZfFIWUYQ06GM6kJuUr75oZElcbfi4Omd6MWgIPtUN/cOaYWxdzSiH000pSHrIhKUuwvqCSSK+vNlLv2TFEOBMd6tlmOq454dk5OVSlrZbakSoVxtt++LseIr+wU2bfhrnMNr+WAjbekvd+LwHlKwo0dZNoxm9KFjiKDB6Blx5tcOrWU6E/aP0=";
 
-            if(input === SECRET_KEY) {
-                document.getElementById('login-screen').style.display = 'none';
-                
-                renderContent();
+        function tryDecrypt() {
+            var password = document.getElementById("passInput").value;
+            var errorMsg = document.getElementById("errorMsg");
 
-                document.getElementById('main-content').style.display = 'block';
+            try {
+                var decryptedBytes = CryptoJS.AES.decrypt(ENCRYPTED_CONTENT, password);
+                var decryptedText = decryptedBytes.toString(CryptoJS.enc.Utf8);
 
+                if (!decryptedText) {
+                    throw new Error("Sai mật khẩu");
+                }
+
+                document.getElementById("main-content").innerHTML = decryptedText;
+
+                document.getElementById("login-screen").style.display = "none";
+                document.getElementById("main-content").style.display = "block";
                 startFireworks();
-            } else {
-                error.innerText = "Sai!";
+
+            } catch (e) {
+                errorMsg.innerText = "SAI!";
                 const box = document.getElementById('login-screen');
                 box.style.transform = "translateX(10px)";
                 setTimeout(() => box.style.transform = "translateX(-10px)", 100);
@@ -203,60 +264,34 @@
             }
         }
 
-        document.getElementById("passInput").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") checkPass();
+        document.getElementById("passInput").addEventListener("keypress", function (event) {
+            if (event.key === "Enter") tryDecrypt();
         });
 
-        function renderContent() {
-            const container = document.getElementById('main-content');
-            container.innerHTML = `
-                <div class="ornament o-tl"></div>
-                <div class="ornament o-tr"></div>
-                <div class="ornament o-bl"></div>
-                <div class="ornament o-br"></div>
 
-                <h1>CHÚC BẢO VỆ ĐỒ ÁN<br>THÀNH CÔNG!</h1>
-                
-                <p>
-                    Gửi tới <span class="highlight">BẠN THU</span>,<br><br>
-                    Bình tĩnh, tự tin trình bày rõ ràng và sẵn sàng trả lời câu hỏi.<br>
-                    Chúc bạn và team bảo vệ thành công và đạt kết quả như kỳ vọng!
-                </p>
-                
-                <div class="quote">
-                    "Try your best!"
-                </div>
-            `;
-        }
-
-
-        document.onkeydown = function(e) {
-            if (e.key == 123) { return false; } // F12
-            if (e.ctrlKey && e.shiftKey && e.key == 'I'.charCodeAt(0)) { return false; } // Ctrl+Shift+I
-            if (e.ctrlKey && e.shiftKey && e.key == 'C'.charCodeAt(0)) { return false; } // Ctrl+Shift+C
-            if (e.ctrlKey && e.shiftKey && e.key == 'J'.charCodeAt(0)) { return false; } // Ctrl+Shift+J
-            if (e.ctrlKey && e.key == 'U'.charCodeAt(0)) { return false; } // Ctrl+U
+        document.onkeydown = function (e) {
+            if (e.key == 123) return false;
+            if (e.ctrlKey && e.shiftKey && (e.key == 'I'.charCodeAt(0) || e.key == 'J'.charCodeAt(0) || e.key == 'C'.charCodeAt(0))) return false;
+            if (e.ctrlKey && e.key == 'U'.charCodeAt(0)) return false;
         };
 
-        function createFlowerTrail(e) {
+        document.addEventListener('mousemove', function (e) {
             let ele = document.createElement("div");
             ele.className = "mouse-flower";
             document.body.prepend(ele);
             ele.style.left = e.clientX + 'px';
             ele.style.top = e.clientY + 'px';
-            const icons = ["🌸", "🌼", "🌺", "✨"]; 
+            const icons = ["🌸", "🌼", "🌺", "✨"];
             ele.innerHTML = icons[Math.floor(Math.random() * icons.length)];
-            let directionX = Math.random() < 0.5 ? -1 : 1;
-            let directionY = Math.random() < 0.5 ? -1 : 1;
+            let dirX = Math.random() < 0.5 ? -1 : 1;
+            let dirY = Math.random() < 0.5 ? -1 : 1;
             setTimeout(() => {
-                ele.style.left = (e.clientX - (directionX * (Math.random() * 50))) + 'px';
-                ele.style.top = (e.clientY - (directionY * (Math.random() * 50))) + 'px';
-                ele.style.opacity = 0;
-                ele.style.transform = 'scale(0.5)';
+                ele.style.left = (e.clientX - (dirX * Math.random() * 50)) + 'px';
+                ele.style.top = (e.clientY - (dirY * Math.random() * 50)) + 'px';
+                ele.style.opacity = 0; ele.style.transform = 'scale(0.5)';
             }, 10);
-            setTimeout(() => { ele.remove(); }, 1000);
-        }
-        document.addEventListener('mousemove', createFlowerTrail);
+            setTimeout(() => ele.remove(), 1000);
+        });
 
 
         var duration = 15 * 1000; 
@@ -291,4 +326,5 @@
         }());
     </script>
 </body>
+
 </html>
