@@ -14,7 +14,6 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            /* Nền đỏ đen vignette */
             background: radial-gradient(circle, #5e0000 0%, #0f0505 100%);
             color: #f4e4bc;
             height: 100vh;
@@ -24,12 +23,11 @@
             overflow: hidden;
             text-align: center;
             
-            /* --- CON TRỎ CHUỘT MỚI: MŨI TÊN VÀNG KIM SẮC NÉT --- */
-            /* Đã chỉnh tọa độ (0 0) để mũi tên trỏ chính xác */
+            /* Con trỏ chuột Mũi tên Vàng kim */
             cursor: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 2L13.5 28L17 19L26 17L2 2Z' fill='%23D4AF37' stroke='%23ffffff' stroke-width='1.5'/%3E%3C/svg%3E") 2 2, auto;
         }
 
-        /* Lớp phủ họa tiết mờ cho background đỡ trống */
+        /* Họa tiết nền */
         body::before {
             content: "";
             position: absolute;
@@ -42,20 +40,17 @@
             position: relative;
             z-index: 10;
             padding: 3.5rem;
-            /* Tăng độ trong suốt để nhìn nền đẹp hơn */
             background: rgba(30, 0, 0, 0.7);
             backdrop-filter: blur(10px);
             border-radius: 12px;
-            /* Viền vàng kim loại */
             border: 2px solid #D4AF37;
-            /* Hiệu ứng bóng đổ tỏa sáng */
             box-shadow: 0 0 50px rgba(212, 175, 55, 0.15), inset 0 0 20px rgba(0,0,0,0.5);
             max-width: 90%;
             width: 750px;
             animation: slideUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        /* Trang trí 4 góc (Corner Ornaments) */
+        /* 4 góc trang trí */
         .ornament {
             position: absolute;
             width: 20px; height: 20px;
@@ -73,7 +68,6 @@
             margin-bottom: 1.5rem;
             text-transform: uppercase;
             color: #D4AF37;
-            /* Tạo chữ nổi 3D nhẹ */
             text-shadow: 3px 3px 0px #3a0000;
             letter-spacing: 2px;
         }
@@ -111,11 +105,20 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Responsive */
+        /* CSS CHO HIỆU ỨNG RẢI HOA THEO CHUỘT */
+        .mouse-flower {
+            position: fixed;
+            pointer-events: none; /* Không che mất các nút bấm */
+            z-index: 9999;
+            font-size: 20px;
+            transition: all 1s ease-out; /* Bay và mờ dần trong 1s */
+            will-change: transform, opacity;
+        }
+
         @media (max-width: 768px) {
             h1 { font-size: 2.2rem; }
             .container { padding: 2rem; }
-            .ornament { display: none; } /* Ẩn góc trên mobile cho thoáng */
+            .ornament { display: none; }
         }
     </style>
 </head>
@@ -127,22 +130,62 @@
         <div class="ornament o-bl"></div>
         <div class="ornament o-br"></div>
 
-        <h1>CHÚC BẢO VỆ ĐỒ ÁN<br>ĐẠI THẮNG!</h1>
+    <h1>CHÚC BẢO VỆ ĐỒ ÁN<br>THÀNH CÔNG!</h1>
         
         <p>
-            Gửi tới team <span class="highlight">Say Xẩm</span>,<br><br>
-            Giờ G sắp điểm. Chúc các bạn giữ vững tinh thần, lập luận sắc bén và lan tỏa trọn vẹn tình yêu văn hóa.<br>
+            Gửi tới <span class="highlight">Bạn</span>,<br><br>
+            Chúc bạn và team bình tĩnh, giữ vững tinh thần, .<br>
             Sân khấu này là của các bạn!
         </p>
         
         <div class="quote">
-            "Mây tre hòa nhịp phách - Ý tưởng vút bay cao"
+            "Try your best!"
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <script>
+        // --- PHẦN 1: HIỆU ỨNG RẢI HOA THEO CHUỘT (TỪ CODE WISH) ---
+        // Hàm tạo hoa
+        function createFlowerTrail(e) {
+            let ele = document.createElement("div");
+            ele.className = "mouse-flower";
+            document.body.prepend(ele); // Thêm vào body
+            
+            // Vị trí theo chuột
+            ele.style.left = e.clientX + 'px';
+            ele.style.top = e.clientY + 'px';
+
+            // Random icon hoa (Đào, Cúc, Hồng, Sao) cho sinh động
+            const icons = ["🌸", "🌼", "🌺", "✨"]; 
+            ele.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+
+            // Random hướng bay
+            let directionX = Math.random() < 0.5 ? -1 : 1;
+            let directionY = Math.random() < 0.5 ? -1 : 1;
+
+            // Hiệu ứng bay nhẹ và biến mất
+            setTimeout(() => {
+                ele.style.left = (e.clientX - (directionX * (Math.random() * 50))) + 'px';
+                ele.style.top = (e.clientY - (directionY * (Math.random() * 50))) + 'px';
+                ele.style.opacity = 0;
+                ele.style.transform = 'scale(0.5)';
+            }, 10);
+
+            // Xóa phần tử sau khi xong animation (1s)
+            setTimeout(() => {
+                ele.remove();
+            }, 1000);
+        }
+
+        // Bắt sự kiện di chuyển chuột
+        document.addEventListener('mousemove', function(e) {
+            createFlowerTrail(e);
+        });
+
+
+        // --- PHẦN 2: PHÁO HOA LIÊN HOÀN (CODE SAY XẨM) ---
         // Cấu hình pháo hoa chạy liên tục
         var duration = 15 * 1000; // Thời gian mỗi đợt (thực ra là chạy mãi mãi do loop)
         var animationEnd = Date.now() + duration;
